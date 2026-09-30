@@ -37,6 +37,9 @@ config:
         advertisedEndpoint: "167.172.10.114:30180"
 
 
+additionalConfigSources:
+  - existingSecret: omni-secret
+    key: config.yaml
 
 envFrom:
   - secretRef:
