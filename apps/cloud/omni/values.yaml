@@ -14,14 +14,19 @@ config:
   auth:
     auth0:
       enabled: false
-      # Match the parent section where oidc: resides in your default_values.yaml
-    oidc:
+    saml:
       enabled: true
-      providerURL: "https://identity.sazara.co.ke/application/o/talos-omni/"
-      clientID: "talos-omni"
-      clientSecret: ""
-      scopes: ["openid", "profile", "email"]
-      logoutURL: "https://identity.sazara.co.ke/application/o/talos-omni/end-session/"
+      metadata: "https://identity.sazara.co.ke/application/saml/talos-omni/metadata/"
+      nameIDFormat: "urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress"
+
+      attributeRules:
+        identity: "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress"
+        fullname: "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"
+        firstname: "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname"
+        lastname: "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/surname"
+
+      labelRules:
+        "omni.sidero.dev/role": "http://schemas.xmlsoap.org/claims/Group"
     initialUsers:
       - "mistidevs@gmail.com"
 
@@ -35,11 +40,6 @@ config:
     siderolink:
       wireGuard:
         advertisedEndpoint: "167.172.10.114:30180"
-
-
-additionalConfigSources:
-  - existingSecret: omni-secret
-    key: config.yaml
 
 envFrom:
   - secretRef:
