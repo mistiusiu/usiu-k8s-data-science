@@ -37,12 +37,10 @@ config:
         advertisedEndpoint: "167.172.10.114:30180"
 
 
-global:
-  envFrom:
-    - secretRef:
-        name: omni-secret
 
-  revisionHistoryLimit: 3
+envFrom:
+  - secretRef:
+      name: omni-secret
 
 resources:
   requests:
