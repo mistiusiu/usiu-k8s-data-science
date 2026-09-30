@@ -11,15 +11,17 @@ config:
     name: "Data And Engineering"
     id: "a3e89f21-72b1-4c1d-8422-92a8310c8f12"
 
-  authProviders:
+  auth:
     auth0:
       enabled: false
+      # Match the parent section where oidc: resides in your default_values.yaml
     oidc:
       enabled: true
-      issuer: "https://identity.sazara.co.ke/application/o/talos-omni/"
+      providerURL: "https://identity.sazara.co.ke/application/o/talos-omni/"
       clientID: "talos-omni"
-      # The OIDC Client Secret is passed via environment variable from omni-secret
       clientSecret: ""
+      scopes: ["openid", "profile", "email"]
+      logoutURL: "https://identity.sazara.co.ke/application/o/talos-omni/end-session/"
     initialUsers:
       - "mistidevs@gmail.com"
 
