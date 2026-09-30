@@ -11,7 +11,7 @@ config:
     name: "Data And Engineering"
     id: "a3e89f21-72b1-4c1d-8422-92a8310c8f12"
 
-  auth:
+  authProviders:
     auth0:
       enabled: false
     oidc:
