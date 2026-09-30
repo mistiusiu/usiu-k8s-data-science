@@ -30,6 +30,10 @@ config:
       advertisedURL: "https://omni-k8s.sazara.co.ke"
     machineAPI:
       advertisedURL: "https://omni-siderolink.sazara.co.ke"
+    siderolink:
+      wireGuard:
+        advertisedEndpoint: "167.172.10.114:30180"
+
 
 global:
   envFrom:
