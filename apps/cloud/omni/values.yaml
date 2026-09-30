@@ -1,0 +1,47 @@
+ingress:
+  main:
+    enabled: false
+  kubernetesProxy:
+    enabled: false
+  siderolinkApi:
+    enabled: false
+
+config:
+  account:
+    name: "Data And Engineering"
+    id: "a3e89f21-72b1-4c1d-8422-92a8310c8f12"
+
+  auth:
+    auth0:
+      enabled: false
+    oidc:
+      enabled: true
+      issuer: "https://identity.sazara.co.ke/application/o/talos-omni/"
+      clientID: "talos-omni"
+      # The OIDC Client Secret is passed via environment variable from omni-secret
+      clientSecret: ""
+    initialUsers:
+      - "mistidevs@gmail.com"
+
+  services:
+    api:
+      advertisedURL: "https://omni.sazara.co.ke"
+    kubernetesProxy:
+      advertisedURL: "https://omni-k8s.sazara.co.ke"
+    machineAPI:
+      advertisedURL: "https://omni-siderolink.sazara.co.ke"
+
+global:
+  envFrom:
+    - secretRef:
+        name: omni-secret
+
+  revisionHistoryLimit: 3
+
+resources:
+  requests:
+    cpu: 250m
+    memory: 512Mi
+  limits:
+    cpu: "1"
+    memory: 1Gi

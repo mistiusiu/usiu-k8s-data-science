@@ -1,0 +1,29 @@
+# omni-ks.yaml
+
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+
+metadata:
+  name: omni
+  namespace: flux-system
+
+spec:
+  interval: 10m
+
+  path: ./apps/cloud/omni
+
+  prune: true
+
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+
+  dependsOn:
+    - name: cert-manager
+    - name: infisical-operator
+    - name: traefik
+    - name: authentik
+
+  timeout: 10m
+
+  targetNamespace: omni

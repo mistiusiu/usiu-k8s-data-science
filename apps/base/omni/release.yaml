@@ -1,0 +1,25 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: omni
+  namespace: omni
+spec:
+  interval: 1h
+  chart:
+    spec:
+      chart: omni
+      # renovate: datasource=helm depName=omni registryUrl=https://siderolabs.github.io/helm-charts
+      version: "0.40.0"
+      sourceRef:
+        kind: HelmRepository
+        name: omni
+        namespace: omni
+      interval: 1h
+  valuesFrom:
+    - kind: ConfigMap
+      name: omni-values
+      valuesKey: values.yaml
+  install:
+    crds: CreateReplace
+  upgrade:
+    crds: CreateReplace

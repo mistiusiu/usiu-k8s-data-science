@@ -1,0 +1,27 @@
+apiVersion: secrets.infisical.com/v1beta1
+kind: InfisicalConnection
+metadata:
+  name: infisical-connection
+  namespace: omni
+spec:
+  address: https://infisical.sazara.co.ke
+---
+apiVersion: secrets.infisical.com/v1beta1
+kind: InfisicalAuth
+metadata:
+  name: omni-infisical-auth
+  namespace: omni
+spec:
+  infisicalConnectionRef:
+    name: infisical-connection
+    namespace: omni
+  method: universal
+  universal:
+    clientIdRef:
+      name: infisical-machine-identity-credentials
+      key: clientId
+      namespace: omni
+    clientSecretRef:
+      name: infisical-machine-identity-credentials
+      key: clientSecret
+      namespace: omni

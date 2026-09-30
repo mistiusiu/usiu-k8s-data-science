@@ -1,0 +1,40 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - ../../../base/omni
+  - ingressroute.yaml
+  - certificate.yaml
+  - middleware.yaml
+  - infisical-auth.yaml
+  - infisical-secrets.yaml
+
+configMapGenerator:
+  - name: omni-values
+    namespace: omni
+    files:
+      - values.yaml
+
+generatorOptions:
+  disableNameSuffixHash: true
+
+patches:
+  - target:
+      group: helm.toolkit.fluxcd.io
+      version: v2
+      kind: HelmRelease
+      name: omni
+      namespace: omni
+    patch: |-
+      - op: add
+        path: /spec/valuesFrom
+        value:
+          # 1. Base values from ConfigMap
+          - kind: ConfigMap
+            name: omni-values
+            valuesKey: values.yaml
+          # 2. Inject OMNI_ASC secret key directly into chart value etcdEncryptionKey.omniAsc
+          - kind: Secret
+            name: omni-secret
+            valuesKey: OMNI_ASC
+            targetPath: etcdEncryptionKey.omniAsc

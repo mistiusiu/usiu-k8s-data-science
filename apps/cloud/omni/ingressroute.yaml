@@ -1,0 +1,34 @@
+# ingressroute.yaml
+
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: omni
+  namespace: omni
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    # 1. Main Web UI & gRPC API
+    - match: Host(`omni.sazara.co.ke`)
+      kind: Rule
+      services:
+        - name: omni
+          port: 8080
+          scheme: h2c # Omni demuxes gRPC and HTTP using h2c (HTTP/2 cleartext)
+    # 2. Kubernetes API Proxy
+    - match: Host(`omni-k8s.sazara.co.ke`)
+      kind: Rule
+      services:
+        - name: omni
+          port: 8080
+          scheme: h2c
+    # 3. SideroLink Machine API
+    - match: Host(`omni-siderolink.sazara.co.ke`)
+      kind: Rule
+      services:
+        - name: omni
+          port: 8080
+          scheme: h2c
+  tls:
+    secretName: omni-tls
