@@ -20,15 +20,15 @@ spec:
     - match: Host(`omni-k8s.sazara.co.ke`)
       kind: Rule
       services:
-        - name: omni
-          port: 8080
+        - name: omni-k8s-proxy
+          port: 8095
           scheme: h2c
     # 3. SideroLink Machine API
     - match: Host(`omni-siderolink.sazara.co.ke`)
       kind: Rule
       services:
         - name: omni
-          port: 8080
+          port: 8090
           scheme: h2c
   tls:
     secretName: omni-tls
