@@ -16,7 +16,7 @@ config:
       enabled: false
     saml:
       enabled: true
-      metadata: "https://identity.sazara.co.ke/application/saml/talos-omni/metadata/"
+      url: "https://identity.sazara.co.ke/application/saml/talos-omni/metadata/"
       nameIDFormat: "urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress"
 
       attributeRules:
