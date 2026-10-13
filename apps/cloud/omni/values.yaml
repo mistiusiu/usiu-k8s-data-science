@@ -39,7 +39,7 @@ config:
       advertisedURL: "https://omni-siderolink.sazara.co.ke"
     siderolink:
       wireGuard:
-        advertisedEndpoint: "167.172.10.114:123" # NTP Port
+        advertisedEndpoint: "165.245.201.227:30180"
 
 envFrom:
   - secretRef:
